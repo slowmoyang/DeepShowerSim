@@ -98,7 +98,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
   const G4double kWorldZSide = 1000.0 * cm; 
 
   // Calorimeter
-  // Simplified `CMS-like` PbWO4 crystal calorimeter  
+  // PbWO4 crystal calorimeter  
   const G4int kNumOfCrystalsPerRow = 9;
   const G4int kNumOfCrystalsPerColumn = 9;
 
@@ -130,7 +130,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
   // World
   //////////////////////////////////////
   G4VSolid* world_solid = new G4Box(
-      "World",           // its name
+      "WorldS",           // its name
       kWorldXSide / 2,
       kWorldYSide / 2,
       kWorldZSide / 2); // its size
@@ -138,13 +138,13 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
   G4LogicalVolume* world_logic = new G4LogicalVolume(
       world_solid,      // its solid
       defaultMaterial,  // its material
-      "World");         // its name
+      "WorldLV");         // its name
                                    
   G4VPhysicalVolume* world_phys = new G4PVPlacement(
       0,                // no rotation
       G4ThreeVector(),  // at (0,0,0)
       world_logic,      // its logical volume                         
-      "World",          // its name
+      "WorldPV",          // its name
       0,                // its mother  volume
       false,            // no boolean operation
       0,                // copy number
@@ -153,10 +153,10 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
 
   ///////////////////////////////////////////////////
   // Calorimeter segments
-  // Simplified 'CMS-like' PbWO4' crystal calorimeter
+  // PbWO4' crystal calorimeter
   ///////////////////////////////////////////////////
   G4VSolid* calo_solid = new G4Box(
-      "CMS_ECAL",       // its name
+      "CalorimeterS",       // its name
       kCaloXSide / 2.0, // size
       kCaloYSide / 2.0,
       kCaloZSide / 2.0);
@@ -164,7 +164,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
   G4LogicalVolume* calo_logic = new G4LogicalVolume(
       calo_solid,     // its solid
       defaultMaterial,  // its material
-      "CMS_ECAL");
+      "CalorimeterLV");
 
   G4double xpos = 0.0;
   G4double ypos = 0.0;
@@ -173,7 +173,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
       0,                   // no rotation
       G4ThreeVector(xpos, ypos, zpos),
       calo_logic,          // its logical volume                         
-      "CMS_ECAL",          // its name
+      "CalorimeterPV",          // its name
       world_logic,         // its mother  volume
       false,               // no boolean operation
       1,                   // copy number
