@@ -38,6 +38,7 @@
 #include "TTree.h"
 #include "TString.h"
 #include "TSystem.h"
+#include "TDatime.h"
 
 
 AnalysisHelper* AnalysisHelper::singleton = nullptr;
@@ -60,13 +61,22 @@ AnalysisHelper::~AnalysisHelper() {}
 
 
 void AnalysisHelper::DoBeginOfRunAction(const G4Run* /*run*/) {
+
+
+  TString out_name;
+  if(out_name = gSystem->Getenv("DSSFILENAME")) {
+    out_name += ".root";
+  } else {
+    TDatime dt{};
+    out_name = TString::Format("crystal_%d-%d.root", dt.GetDate(), dt.GetTime());
+  }
+
   TString pwd = gSystem->pwd();
-  out_path_ = gSystem->ConcatFileName(pwd, "crystal.root");
-  tree_name_ = "crystal";
+  TString out_path = gSystem->ConcatFileName(pwd, out_name);
 
-  root_file_ = TFile::Open(out_path_, "RECREATE");
+  root_file_ = TFile::Open(out_path, "RECREATE");
 
-  tree_ = new TTree(tree_name_, tree_name_);
+  tree_ = new TTree("crystal", "crystal");
   tree_->SetDirectory(root_file_);
   MakeBranch();
   ResetBranch();
@@ -87,7 +97,7 @@ void AnalysisHelper::DoEndOfRunAction(const G4Run* /*run*/) {
 }
 
 
-void AnalysisHelper::DoBeginOfEventAction(const G4Event* event) {
+void AnalysisHelper::DoBeginOfEventAction(const G4Event* /*event*/) {
   ResetBranch();
   return ;
 }

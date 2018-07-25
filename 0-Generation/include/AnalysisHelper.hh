@@ -28,9 +28,6 @@
 //
 #include "globals.hh"
 
-// ROOT Classes
-#include "TString.h"
-
 // G4 Classes Forward
 class G4Run;
 class G4Event;
@@ -76,8 +73,6 @@ class AnalysisHelper {
  private:
   static AnalysisHelper* singleton;
 
-  TString out_path_;
-  TString tree_name_;
   TFile* root_file_;
   TTree* tree_;
 
