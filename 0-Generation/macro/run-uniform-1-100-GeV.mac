@@ -1,0 +1,19 @@
+# Macro file for example 
+
+/run/initialize
+/run/printProgress 1
+/run/verbose 2
+
+#/gps/List #lists the particles you can shoot with G4
+/gps/particle e+
+/gps/pos/type Beam
+/gps/pos/centre 0.0 0.0 -28.8
+/gps/direction 0 0 1
+/gps/ene/type Lin
+/gps/ene/min 1 GeV	
+/gps/ene/max 100 GeV	
+/gps/ene/gradient 0. #uniform
+/gps/ene/intercept 1	
+/gps/number 1 
+
+/run/beamOn 10000

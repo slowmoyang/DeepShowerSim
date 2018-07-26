@@ -1,0 +1,13 @@
+# Macro file
+/run/initialize
+/run/printProgress 1
+/run/verbose 2
+
+/gps/particle e+
+/gps/pos/type Beam
+/gps/pos/centre 0.0 0.0 -28.8
+/gps/direction 0 0 1
+/gps/energy 100 GeV
+/gps/number 1 
+
+/run/beamOn 100
