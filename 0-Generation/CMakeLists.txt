@@ -23,6 +23,10 @@ else()
   find_package(Geant4 REQUIRED)
 endif()
 
+# find_package(Boost COMPONENTS program_options)
+find_package(Boost 1.40 COMPONENTS program_options REQUIRED)
+
+
 #----------------------------------------------------------------------------
 # Setup Geant4 include directories and compile definitions
 # Setup include directory for this project
@@ -43,6 +47,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #
 add_executable(generate generate.cc ${sources} ${headers})
 target_link_libraries(generate ${Geant4_LIBRARIES})
+# target_link_libraries(generate ${Boost_LIBRARIES})
+target_link_libraries(generate Boost::program_options)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX

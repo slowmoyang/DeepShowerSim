@@ -24,6 +24,7 @@
 
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
+#include "AnalysisHelper.hh"
 
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
@@ -35,23 +36,41 @@
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
 
+// ROOT Classes
+#include "TSystem.h"
+
+//
+#include "boost/program_options.hpp"
+
+//
 #include <ctime>
 
+namespace po = boost::program_options;
 
-int main(int argc, char** argv) {
-
-  if(argc == 1) {
-    G4cerr << "a path to macro file is required." << G4endl;
-    return 1;
+/*
+  TString out_name;
+  if(out_name = gSystem->Getenv("DSSFILENAME")) {
+    out_name += ".root";
+  } else {
+    TDatime dt{};
+    out_name = TString::Format("crystal_%d-%d.root", dt.GetDate(), dt.GetTime());
   }
 
+  TString pwd = gSystem->pwd();
+
+*/
+
+int main(int argc, char* argv[]) {
+
   G4String macro = argv[1];
+  G4String out_path = argv[2];
 
   G4UIExecutive* ui = 0;
-  if ( ! macro.size() ) {
+  if ( not macro.size() ) {
     ui = new G4UIExecutive(argc, argv);
   }
 
+  AnalysisHelper::GetInstance()->PrepareRun(out_path, "crystal");
 
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
 

@@ -49,6 +49,8 @@ class AnalysisHelper {
   ~AnalysisHelper();
   static AnalysisHelper* GetInstance();
 
+  void PrepareRun(const char* out_path, const char* tree_name);
+
   void DoBeginOfRunAction(const G4Run* run);
   void DoEndOfRunAction(const G4Run* run);
   void DoBeginOfEventAction(const G4Event* event);

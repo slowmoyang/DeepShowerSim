@@ -54,34 +54,24 @@ AnalysisHelper* AnalysisHelper::GetInstance() {
 
 
 AnalysisHelper::AnalysisHelper() {
+
 }
 
 
 AnalysisHelper::~AnalysisHelper() {}
 
 
-void AnalysisHelper::DoBeginOfRunAction(const G4Run* /*run*/) {
-
-
-  TString out_name;
-  if(out_name = gSystem->Getenv("DSSFILENAME")) {
-    out_name += ".root";
-  } else {
-    TDatime dt{};
-    out_name = TString::Format("crystal_%d-%d.root", dt.GetDate(), dt.GetTime());
-  }
-
-  TString pwd = gSystem->pwd();
-  TString out_path = gSystem->ConcatFileName(pwd, out_name);
-
+void AnalysisHelper::PrepareRun(const char* out_path, const char* tree_name) {
   root_file_ = TFile::Open(out_path, "RECREATE");
 
-  tree_ = new TTree("crystal", "crystal");
+  tree_ = new TTree(tree_name, tree_name);
   tree_->SetDirectory(root_file_);
   MakeBranch();
   ResetBranch();
+}
 
-  return;
+void AnalysisHelper::DoBeginOfRunAction(const G4Run* /*run*/) {
+  return ;
 }
 
 
