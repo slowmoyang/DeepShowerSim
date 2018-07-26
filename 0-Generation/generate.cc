@@ -39,26 +39,14 @@
 // ROOT Classes
 #include "TSystem.h"
 
-//
-#include "boost/program_options.hpp"
+// Boost Classes
+// #include "boost/program_options.hpp"
 
 //
 #include <ctime>
 
-namespace po = boost::program_options;
+// namespace po = boost::program_options;
 
-/*
-  TString out_name;
-  if(out_name = gSystem->Getenv("DSSFILENAME")) {
-    out_name += ".root";
-  } else {
-    TDatime dt{};
-    out_name = TString::Format("crystal_%d-%d.root", dt.GetDate(), dt.GetTime());
-  }
-
-  TString pwd = gSystem->pwd();
-
-*/
 
 int main(int argc, char* argv[]) {
 
