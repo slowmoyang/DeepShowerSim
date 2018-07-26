@@ -62,15 +62,18 @@ namespace po = boost::program_options;
 
 int main(int argc, char* argv[]) {
 
-  G4String macro = argv[1];
-  G4String out_path = argv[2];
-
+  G4String macro;
+  G4String out_path;
   G4UIExecutive* ui = 0;
-  if ( not macro.size() ) {
+
+  if( argc > 1 ) {
+    macro = argv[1];
+    out_path = argv[2];
+    AnalysisHelper::GetInstance()->PrepareRun(out_path, "crystal");
+  } else {
     ui = new G4UIExecutive(argc, argv);
   }
 
-  AnalysisHelper::GetInstance()->PrepareRun(out_path, "crystal");
 
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
@@ -103,10 +106,7 @@ int main(int argc, char* argv[]) {
     UImanager->ApplyCommand(command + macro);
   } else {  
     // interactive mode : define UI session
-    UImanager->ApplyCommand("/control/execute init_vis.mac");
-    if (ui->IsGUI()) {
-      UImanager->ApplyCommand("/control/execute gui.mac");
-    }
+    UImanager->ApplyCommand("/control/execute macro/init_vis.mac");
     ui->SessionStart();
     delete ui;
   }
