@@ -103,7 +103,7 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
   const G4int kNumOfCrystalsPerColumn = 9;
 
   const G4double kCrystalWidth = 2.2*cm;
-  const G4double kCrystalLength = 22*cm;
+  const G4double kCrystalLength = 23.0*cm;
 
   const G4double kCaloXSide = (kCrystalWidth * kNumOfCrystalsPerRow) + 1*cm;
   const G4double kCaloYSide = (kCrystalWidth * kNumOfCrystalsPerColumn) + 1*cm;
@@ -192,6 +192,10 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
       crystal_solid,      // its solid
       crystalMaterial,    // its material
       "CrystalLV");       // its name
+
+  // FIXME change the name
+  const G4double kCommonTranslationX = kCrystalWidth * (kNumOfCrystalsPerRow - 1) / 2;
+  const G4double kCommonTranslationY = kCrystalWidth * (kNumOfCrystalsPerColumn - 1) / 2;
  
   for(G4int row = 0; row < kNumOfCrystalsPerRow; row++) {
     for(G4int col = 0; col < kNumOfCrystalsPerColumn; col++) {
@@ -200,8 +204,8 @@ G4VPhysicalVolume* DetectorConstruction::DefineVolumes() {
 
       G4cout << "make " << idx << "th crystal." << G4endl;
 
-      G4double crystal_x = (row * kCrystalWidth) - (kCrystalWidth * kNumOfCrystalsPerRow / 2);
-      G4double crystal_y = (col * kCrystalWidth) - (kCrystalWidth * kNumOfCrystalsPerColumn / 2);
+      G4double crystal_x = (row * kCrystalWidth) - kCommonTranslationX;
+      G4double crystal_y = (col * kCrystalWidth) - kCommonTranslationY;
       G4ThreeVector crystal_pos(crystal_x, crystal_y, 0);
 
       crystal_phys_[idx] = new G4PVPlacement(
