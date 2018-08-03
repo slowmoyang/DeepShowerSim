@@ -1,0 +1,3 @@
+[submodule "1-Training/torch4hep"]
+	path = 1-Training/torch4hep
+	url = https://github.com/slowmoyang/torch4hep.git
