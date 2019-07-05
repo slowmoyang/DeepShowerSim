@@ -57,6 +57,9 @@ int main(int argc, char* argv[]) {
   if( argc > 1 ) {
     macro = argv[1];
     out_path = argv[2];
+    if(not out_path.contains(".root")) {
+      out_path += ".root";
+    }
     AnalysisHelper::GetInstance()->PrepareRun(out_path, "crystal");
   } else {
     ui = new G4UIExecutive(argc, argv);
