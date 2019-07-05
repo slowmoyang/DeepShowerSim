@@ -3,11 +3,11 @@
 /run/printProgress 1
 /run/verbose 2
 
-/gps/particle e+
+/gps/particle gamma
 /gps/pos/type Beam
-/gps/pos/centre 0.0 0.0 -12
+/gps/pos/centre 0.0 0.0 -20.0
 /gps/direction 0 0 1
-/gps/energy 100 GeV
+/gps/energy 50 GeV
 /gps/number 1 
 
-/run/beamOn 10
+/run/beamOn 10000
